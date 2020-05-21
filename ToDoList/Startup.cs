@@ -34,6 +34,8 @@ namespace ToDoList
           template: "{controller=Home}/{action=Index}/{id?}");
       });
 
+      app.UseStaticFiles(); // for using static files like images/music/etc
+      // must be coded before app.Run or the files won't load.
       app.Run(async (context) =>
       {
         await context.Response.WriteAsync("Something went wrong!");
