@@ -69,5 +69,20 @@ namespace ToDoList.Tests
 
       Assert.AreEqual(newCategory2, result);
     }
+
+    [TestMethod]
+  public void AddItem_AssociatesItemWithCategory_ItemList()
+  {
+    string description = "Walk the dog.";
+    Item newItem = new Item(description);
+    List<Item> newList = new List<Item> { newItem }; // We create a new Item and add it to a List.
+    string name = "Work";
+    Category newCategory = new Category(name); // Then we create a new Category and call the soon-to-be-created AddItem method upon it, passing in our sample Item.
+    newCategory.AddItem(newItem); // Next, we call newCategory.Items, to retrieve the Items saved in our Category.
+
+    List<Item> result = newCategory.Items; // Finally, we assert that newCategory.Items should return a List containing our single Item.
+
+    CollectionAssert.AreEqual(newList, result);
+  }
   }
 }

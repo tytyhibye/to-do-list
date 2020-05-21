@@ -31,5 +31,10 @@ namespace ToDoList.Models
     {
       return _instances[searchId -1];
     }
+
+    public void AddItem(Item item) // AddItem() will accept an Item object and then use the built-in List Add() method to save that item into the Items property of a specific Category.
+    {
+      Items.Add(item);
+    }
   }
 }
