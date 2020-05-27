@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@model ToDoList.Models.Item // tells view what type of data is being passed from controller route
+
+<h4>Add a new task:</h4>
+@using (Html.BeginForm()) // sends post request to current URL (create() route)
+{
+    @Html.LabelFor(model => model.Description)  // (model => model.<property-name>).
+    @Html.TextBoxFor(model => model.Description) // lambda expression = way to write anonymous function in a condensed fashion.
+    <input type="submit" value="Add new task" />
+}
+<p>@Html.ActionLink("Show all items", "Index")</p>
