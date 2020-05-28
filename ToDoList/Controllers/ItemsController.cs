@@ -2,21 +2,22 @@ using Microsoft.AspNetCore.Mvc;
 using ToDoList.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ToDoList.Controllers
 {
   public class ItemsController : Controller
   {
-    private readonly ToDoListContext _db; // Declares a private and readonly field of type ToDoListContext.
+    private readonly ToDoListContext _db;
 
-    public ItemsController(ToDoListContext db) // uses dependency injection from addDbContext method in ConfigureServices method in Startup.cs to set the value of our new db property to our ToDoListContext.
+    public ItemsController(ToDoListContext db)
     {
       _db = db;
     }
 
     public ActionResult Index()
     {
-      List<Item> model = _db.Items.ToList(); // replaces GetAll() method (can't use dataset "db.Items" as model for view, hence .ToList())
+      List<Item> model = _db.Items.ToList();
       return View(model);
     }
 
@@ -28,15 +29,44 @@ namespace ToDoList.Controllers
     [HttpPost]
     public ActionResult Create(Item item)
     {
-        _db.Items.Add(item); // runs on DBSet property of DBContext
-        _db.SaveChanges(); // runs on DBContext itself
-        return RedirectToAction("Index");
+      _db.Items.Add(item);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
 
-    public ActionResult Details(int id) // int id = id of entry we want to view as its sole parameter. Must match property from anonymous object created in ActionLink with code new { id = item.ItemId }
+    public ActionResult Details(int id)
     {
-      Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id); // lambda equates to "Start by looking at db.Items (our items table), Then find any items where the ItemId of an item is equal to the id we've passed into this method."
+      Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
       return View(thisItem);
+    }
+
+    public ActionResult Edit(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      return View(thisItem);
+    }
+
+    [HttpPost]
+    public ActionResult Edit(Item item)
+    {
+      _db.Entry(item).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult Delete(int id)
+    {
+      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      return View(thisItem);
+    }      
+
+    [HttpPost, ActionName("Delete")] // so we can utilize the "Delete" action still.
+    public ActionResult DeleteConfirmed(int id) // different name because GET & POST have same signature (method name and parameters)
+    {
+      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
+      _db.Items.Remove(thisItem);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
     }
   }
 }
