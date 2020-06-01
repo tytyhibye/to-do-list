@@ -13,7 +13,9 @@
     
     @Html.LabelFor(model => model.Category)
     @Html.DropDownList("CategoryId")
+    <br>
     
-    <input type="submit" value="Add new task" />
+    <input type="submit" value="Add new task" class="btn" />
 }
+<br>
 <p>@Html.ActionLink("Show all items", "Index")</p>

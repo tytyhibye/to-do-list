@@ -17,7 +17,7 @@ namespace ToDoList.Controllers
 
     public ActionResult Index()
     {
-      List<Item> model = _db.Items.ToList();
+      List<Category> model = _db.Categories.ToList();
       return View(model);
     }
 
@@ -27,44 +27,44 @@ namespace ToDoList.Controllers
     }
 
     [HttpPost]
-    public ActionResult Create(Item item)
+    public ActionResult Create(Category category)
     {
-      _db.Items.Add(item);
+      _db.Categories.Add(category);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Details(int id)
     {
-      Item thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
-      return View(thisItem);
+      Category thisCategory = _db.Categories.FirstOrDefault(categories => categories.CategoryId == id);
+      return View(thisCategory);
     }
 
     public ActionResult Edit(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
-      return View(thisItem);
+      var thisCategory = _db.Categories.FirstOrDefault(categories => categories.CategoryId == id);
+      return View(thisCategory);
     }
 
     [HttpPost]
-    public ActionResult Edit(Item item)
+    public ActionResult Edit(Category Category)
     {
-      _db.Entry(item).State = EntityState.Modified;
+      _db.Entry(Category).State = EntityState.Modified;
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
 
     public ActionResult Delete(int id)
     {
-      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
-      return View(thisItem);
+      var thisCategory = _db.Categories.FirstOrDefault(categories => categories.CategoryId == id);
+      return View(thisCategory);
     }      
 
     [HttpPost, ActionName("Delete")] // so we can utilize the "Delete" action still.
     public ActionResult DeleteConfirmed(int id) // different name because GET & POST have same signature (method name and parameters)
     {
-      var thisItem = _db.Items.FirstOrDefault(items => items.ItemId == id);
-      _db.Items.Remove(thisItem);
+      var thisCategory = _db.Categories.FirstOrDefault(categories => categories.CategoryId == id);
+      _db.Categories.Remove(thisCategory);
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
