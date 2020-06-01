@@ -5,12 +5,12 @@
 @using ToDoList.Models;
 @model List<ToDoList.Models.Item>; // gives access to neccessary list of items
 
-<h1>Items</h1>
+<h2>Items</h2>
 
 <ul>
   @foreach(Item item in Model)
   {
-      <li>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId }) | @item.Category.Name</li> //property names of the object we pass in {id = item.ItemId} MUST match parameter names used by the target method (Details())
+      <p>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId }) | @item.Category.Name</p> //property names of the object we pass in {id = item.ItemId} MUST match parameter names used by the target method (Details())
   }
 </ul>
 
