@@ -11,7 +11,7 @@
     @Html.LabelFor(model => model.Description)  // (model => model.<property-name>).
     @Html.TextBoxFor(model => model.Description) // lambda expression = way to write anonymous function in a condensed fashion.
     
-    @Html.LabelFor(model => model.Category)
+    @Html.Label("Select Category")
     @Html.DropDownList("CategoryId")
     <br>
     

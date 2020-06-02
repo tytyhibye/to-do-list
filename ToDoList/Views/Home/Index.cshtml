@@ -1,10 +1,9 @@
 @{
   Layout = "_Layout";
 }
-    <h2>Welcome to the To Do List!</h2>
-    <br>
-    @* <p>@Html.ActionLink("See all items", "Index", "Items")</p> *@
-
-    @*See all items = display text for the link ie: where it goes*@
-    @*Index = target action in the controller*@
-    @*(optional)Items = routes to Index action of ItemsController (doesn't need "Controller")*@
+  <h2>Welcome to the To Do List!</h2>
+  <p>This is a site where you can add and organize items on your to do list</p>
+  <br>
+  <p>Let's get sarted by creating an account</p>
+  <br>
+  <p>Click @Html.ActionLink("here", "Index", "Account") to begin.</p>

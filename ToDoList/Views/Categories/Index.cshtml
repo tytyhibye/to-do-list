@@ -10,7 +10,7 @@
 <ul>
   @foreach(Category category in Model)
   {
-      <p>@Html.ActionLink($"{category.Name}", "Details", new { id = category.CategoryId })</p> //property names of the object we pass in {id = item.ItemId} MUST match parameter names used by the target method (Details())
+    <p>@Html.ActionLink($"{category.Name}", "Details", new { id = category.CategoryId })</p> //property names of the object we pass in {id = item.ItemId} MUST match parameter names used by the target method (Details())
   }
 </ul>
 
