@@ -2,23 +2,25 @@
   Layout = "_Layout";
 }
 
-@using ToDoList.Models;
-@model List<ToDoList.Models.Item>; // gives access to neccessary list of items
+@using ToDoList.Models
+@model IEnumerable<ToDoList.Models.Item> // gives access to neccessary list of items
 
-<h2>Items</h2>
+<h2>Items for @User.Identity.Name</h2>
 
-<ul>
-  @foreach(Item item in Model)
-  {
-      <p>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId })</p> //property names of the object we pass in {id = item.ItemId} MUST match parameter names used by the target method (Details())
-  }
-</ul>
-
-@if (@Model.Count == 0)
+@if (Model.Any())
+{
+  <ul>
+    @foreach(Item item in Model)
+    {
+        <p>@Html.ActionLink($"{item.Description}", "Details", new { id = item.ItemId })</p> //property names of the object we pass in {id = item.ItemId} MUST match parameter names used by the target method (Details())
+    }
+  </ul>
+}
+else
 {
   <h3>No items have been added yet!</h3>
 } 
 <br>
 <p>@Html.ActionLink("Add new item", "Create")</p>
 
-Omit third parameter because we are routing to Items controller
+@* Omit third parameter because we are routing to Items controller *@

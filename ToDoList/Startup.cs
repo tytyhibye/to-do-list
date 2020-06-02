@@ -34,6 +34,16 @@ namespace ToDoList
       services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<ToDoListContext>()
         .AddDefaultTokenProviders();              
+    
+      services.Configure<IdentityOptions>(options => // customize password requirements
+      { 
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 0;  // cannot be null. password can now be a single letter
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequiredUniqueChars = 0;
+      });
     }
 
     public void Configure(IApplicationBuilder app)
