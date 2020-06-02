@@ -44,5 +44,12 @@ namespace ToDoList.Controllers
         return View();
       }
     }
+
+    [HttpPost]
+    public async Task<ActionResult> LogOff()
+    {
+      await _signInManager.SignOutAsync();
+      return RedirectToAction("Index");
+    }
   }
 }
