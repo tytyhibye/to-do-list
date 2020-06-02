@@ -1,0 +1,13 @@
+@{
+  Layout = "_Layout";
+}
+
+@using ToDoList.Models;
+
+<h3>Search Results:</h3>
+<hr />
+
+@foreach(Category category in Model)
+{
+  <h4>@Html.ActionLink($"{category.Name}", "Details", "Categorys", new {id = category.CategoryId})</h4>
+}

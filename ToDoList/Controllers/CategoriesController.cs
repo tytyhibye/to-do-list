@@ -72,5 +72,25 @@ namespace ToDoList.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    [HttpGet("/search")]
+    public ActionResult Search(string search)
+    {
+      List<Category> model = _db.Categories.Include(categories => categories.Items).ToList();
+      Category match = new Category();
+      List<Category> matches = new List<Category>{};
+      
+      if (!string.IsNullOrEmpty(search))
+      {
+       foreach(Category Category in model)
+       {
+         if (Category.Name.ToLower().Contains(search))
+         {
+           matches.Add(Category);
+         }
+       } 
+      }
+      return View(matches);
+    }
   }
 }
